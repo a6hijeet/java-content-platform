@@ -11,9 +11,9 @@ public class Post {
   Set<User> likes = new HashSet<User>();
   List<Comment> comments = new ArrayList<>();
 
-  public Post(String title, long id) {
-    this.title = title;
+  public Post(long id, String title) {
     this.id = id;
+    this.title = title;
   }
 
   public long getId() {
