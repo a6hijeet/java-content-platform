@@ -8,11 +8,19 @@ import java.util.List;
 public class Post {
   private String title;
   private long id;
-  Set<Long> likes = new HashSet<Long>();
+  Set<User> likes = new HashSet<User>();
   List<Comment> comments = new ArrayList<>();
 
   public Post(String title, long id) {
     this.title = title;
+    this.id = id;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -24,19 +32,11 @@ public class Post {
     this.title = title;
   }
 
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  public Set<Long> getLikes() {
+  public Set<User> getLikes() {
     return likes;
   }
 
-  public void setLikes(Set<Long> likes) {
+  public void setLikes(Set<User> likes) {
     this.likes = likes;
   }
 
