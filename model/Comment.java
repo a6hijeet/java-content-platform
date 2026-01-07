@@ -2,12 +2,12 @@ package model;
 
 public class Comment {
   private long id;
-  private long userId;
+  private User user;
   private String comment;
 
-  public Comment(long id, long userId, String comment) {
+  public Comment(long id, User user, String comment) {
     this.id = id;
-    this.userId = userId;
+    this.user = user;
     this.comment = comment;
   }
 
@@ -19,12 +19,12 @@ public class Comment {
     this.id = id;
   }
 
-  public long getUserId() {
-    return userId;
+  public User getUser() {
+    return user;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public String getComment() {
