@@ -5,6 +5,6 @@ import java.util.Optional;
 
 public interface ContentRepository {
   <T> List<T> getAll();
-  <T> Optional<T> findById();
+  <T> Optional<T> findById(long id);
   <T> T save(Class<T> t);
 }
