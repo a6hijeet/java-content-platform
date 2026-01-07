@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Post {
-  private String title;
   private long id;
+  private String title;
   Set<User> likes = new HashSet<User>();
   List<Comment> comments = new ArrayList<>();
 
