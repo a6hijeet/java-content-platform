@@ -1,5 +1,15 @@
+import java.util.List;
+
+import controller.PostController;
+import model.Post;
+
 public class App {
   public static void main(String[] args) {
-    System.out.println("Java content platform");
+    PostController pc = new PostController();
+    List<Post> postList = pc.getAll(); 
+    for (Post post : postList) {
+      System.out.println(post.getId() + " " + post.getTitle());
+    }
+  
   }
 }
