@@ -10,6 +10,9 @@ public class App {
     for (Post post : postList) {
       System.out.println(post.getId() + " " + post.getTitle());
     }
-  
+    
+    Post p = pc.getPostById(102);
+
+    System.out.println("Get Post " + p.getId() + " " + p.getTitle());
   }
 }
