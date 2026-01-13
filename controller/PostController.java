@@ -19,4 +19,8 @@ public class PostController {
         Optional<Post> p = ps.getPostById(postId);
         return p.orElseThrow();
     }
+
+    public boolean createPost(int id, String title) {
+        return ps.createPost(id, title);
+    }
 }

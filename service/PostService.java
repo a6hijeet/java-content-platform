@@ -10,9 +10,10 @@ import repository.impl.PostRepository;
 public class PostService {
 
   PostRepository pr = new PostRepository();
-  public Post createPost(int id, String title) {
+  
+  public boolean createPost(int id, String title) {
     Post p = new Post(id, title);
-    return p;
+    return pr.addPost(p);
   }
 
   public List<Post> getAll() {

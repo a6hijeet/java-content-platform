@@ -48,5 +48,12 @@ public class Post {
     this.comments = comments;
   }
 
+  @Override
+  public String toString() {
+    return "Post [id=" + id + ", title=" + title + ", likes=" + likes + ", comments=" + comments + "]";
+  }
+
+  
+
   
 }
