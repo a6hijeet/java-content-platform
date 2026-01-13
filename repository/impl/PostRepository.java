@@ -1,24 +1,27 @@
 package repository.impl;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import model.Post;
+import util.JsonFile;
 
 public class PostRepository {
-
-    private List<Post> postList = new ArrayList<>(Arrays.asList(
-            new Post(101, "Post 1"),
-            new Post(102, "Post 2"),
-            new Post(103, "Post 3"),
-            new Post(104, "Post 4")
-        ));
-
+    
+    private static final String FILE = "storage/posts.json";
+    
     public List<Post> getAll() {
-        return this.postList;
+        List<Post> posts = JsonFile.readList(FILE, new TypeReference<List<Post>>() {});
+        return posts;
     }
 
-     public boolean addPost(Post p) {
+     /* public boolean addPost(Post p) {
+        JsonFile.writeList(FILE, Arrays.asList(p));
         return this.postList.add(p);
     }
 
@@ -28,5 +31,8 @@ public class PostRepository {
 
     public Post deletePost(int index) {
         return this.postList.remove(index);
-    }
+    } */
+   public void saveAll(List<Post> posts) {
+    JsonFile.writeList(FILE, posts);
+   }
 }

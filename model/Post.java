@@ -11,6 +11,9 @@ public class Post {
   Set<User> likes = new HashSet<User>();
   List<Comment> comments = new ArrayList<>();
 
+  public Post() {
+  }
+
   public Post(long id, String title) {
     this.id = id;
     this.title = title;
@@ -46,6 +49,48 @@ public class Post {
 
   public void setComments(List<Comment> comments) {
     this.comments = comments;
+  }
+
+  
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    result = prime * result + ((likes == null) ? 0 : likes.hashCode());
+    result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Post other = (Post) obj;
+    if (id != other.id)
+      return false;
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    if (likes == null) {
+      if (other.likes != null)
+        return false;
+    } else if (!likes.equals(other.likes))
+      return false;
+    if (comments == null) {
+      if (other.comments != null)
+        return false;
+    } else if (!comments.equals(other.comments))
+      return false;
+    return true;
   }
 
   @Override

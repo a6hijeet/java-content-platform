@@ -28,7 +28,7 @@ public class PostController {
         return ps.updatePost(id, title);
     }
 
-    public Post deletePost(long id) {
+    public boolean deletePost(long id) {
         return ps.deletePost(id);
     }
 }

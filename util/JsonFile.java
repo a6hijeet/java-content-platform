@@ -27,7 +27,7 @@ public class JsonFile {
       if(!file.exists())
         return new ArrayList<>();
 
-      return mapper.readValue(path, type);
+      return mapper.readValue(file, type);
     }
     catch(Exception e) {
       throw new RuntimeException(e);

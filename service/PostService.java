@@ -12,18 +12,27 @@ public class PostService {
   PostRepository pr = new PostRepository();
   
   public boolean createPost(long id, String title) {
+    List<Post> posts = pr.getAll();
     Post p = new Post(id, title);
-    return pr.addPost(p);
+    posts.add(p);
+    pr.saveAll(posts);
+    return true;
   }
 
   public boolean updatePost(long id, String title) {
     try {
       Post p = getPostById(id).get();
+      // Get All Posts
       List<Post> postList = pr.getAll();
+
+      //Find index of post
       int index = postList.indexOf(p);
+
       p.setTitle(title);
       p.setId(id);
-      pr.updatePost(index, p);
+  
+      postList.set(index, p);
+      pr.saveAll(postList);
       return true;
     }catch(Exception e) {
       System.out.println("No post found");
@@ -32,16 +41,17 @@ public class PostService {
   
   }
 
-  public Post deletePost(long id) {
+  public boolean deletePost(long id) {
     try {
       Post p = getPostById(id).get();
       List<Post> postList = pr.getAll();
       int index = postList.indexOf(p);
-      Post deleted = pr.deletePost(index);
-      return deleted;
+      postList.remove(index);
+      pr.saveAll(postList);
+      return true;
     }catch(Exception e) {
       System.out.println("No post found");
-      return null;
+      return false;
     }
   }
 
