@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 import controller.PostController;
@@ -5,53 +6,25 @@ import model.Post;
 
 public class App {
   public static void main(String[] args) {
-    PostController pc = new PostController();
+  PostController pc = new PostController();
 
-    // Pring exstigin list of posts
-    List<Post> postList = pc.getAll(); 
-    System.out.println("Existing posts");
-    for (Post post : postList) {
-      System.out.println(post.getId() + " " + post.getTitle());
-    }
-    System.out.println();
+   pc.createPost(101, "Post 1");
+   pc.createPost(102, "Post 2");
+   pc.createPost(103, "Post 3");
+   pc.createPost(104, "Post 4");
+   pc.createPost(105, "Post 5");
 
-    // Get post by id
-    Post p = pc.getPostById(102);
-    System.out.println("Get Post by id 102");
-    System.out.println(p.toString());
-    System.out.println();
-
-
-    // Create new post
-    boolean addPost = pc.createPost(105, "New Post 5");
-    System.out.println("Creating new post");
-    System.out.println(addPost ? "Post Added " : " No post added");
-    // Print updated list
-    List<Post> postList1 = pc.getAll(); 
-    for (Post post : postList1) {
-      System.out.println(post.getId() + " " + post.getTitle());
-    }
-    System.out.println();
+   List<Post> posts = pc.getAll();
     
+   posts.forEach(post -> System.out.println(post.toString()));
 
-    // Update existing post
-    System.out.println("Updating post 3");
-    pc.updatePost(103, "Updated post 3");
-    List<Post> postList2 = pc.getAll(); 
-    for (Post post : postList2) {
-      System.out.println(post.getId() + " " + post.getTitle());
-    }
-    System.out.println();
+   pc.updatePost(101, "Updated post");
 
-    // Delete post
-    System.out.println("Deleting Post 1");
-    Post deleted = pc.deletePost(101);
-    System.out.println("Deleted Post " + deleted);
-    System.out.println("Updated list after deleting");
-    for (Post post : postList2) {
-      System.out.println(post.getId() + " " + post.getTitle());
-    }
+    
+   pc.getAll().forEach(post -> System.out.println(post.toString()));
 
+   pc.deletePost(105);
 
+   pc.getAll().forEach(post -> System.out.println(post.toString()));
   }
 }

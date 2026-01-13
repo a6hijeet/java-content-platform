@@ -1,1 +1,21 @@
-[ ]
+[ {
+  "id" : 101,
+  "title" : "Updated post",
+  "likes" : [ ],
+  "comments" : [ ]
+}, {
+  "id" : 102,
+  "title" : "Post 2",
+  "likes" : [ ],
+  "comments" : [ ]
+}, {
+  "id" : 103,
+  "title" : "Post 3",
+  "likes" : [ ],
+  "comments" : [ ]
+}, {
+  "id" : 104,
+  "title" : "Post 4",
+  "likes" : [ ],
+  "comments" : [ ]
+} ]
