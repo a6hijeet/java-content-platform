@@ -25,4 +25,8 @@ public class PostRepository {
     public void updatePost(int index, Post p) {
         this.postList.set(index, p);
     }
+
+    public Post deletePost(int index) {
+        return this.postList.remove(index);
+    }
 }

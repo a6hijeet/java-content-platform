@@ -24,11 +24,25 @@ public class PostService {
       p.setTitle(title);
       p.setId(id);
       pr.updatePost(index, p);
+      return true;
     }catch(Exception e) {
       System.out.println("No post found");
       return false;
     }
-    return true;
+  
+  }
+
+  public Post deletePost(long id) {
+    try {
+      Post p = getPostById(id).get();
+      List<Post> postList = pr.getAll();
+      int index = postList.indexOf(p);
+      Post deleted = pr.deletePost(index);
+      return deleted;
+    }catch(Exception e) {
+      System.out.println("No post found");
+      return null;
+    }
   }
 
   public List<Post> getAll() {

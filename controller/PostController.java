@@ -27,4 +27,8 @@ public class PostController {
     public boolean updatePost(long id, String title) {
         return ps.updatePost(id, title);
     }
+
+    public Post deletePost(long id) {
+        return ps.deletePost(id);
+    }
 }
