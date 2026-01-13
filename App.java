@@ -28,6 +28,14 @@ public class App {
     }
     
 
+    // Update existing post
+    pc.updatePost(106, "Updated post 2");
+    List<Post> postList2 = pc.getAll(); 
+    for (Post post : postList2) {
+      System.out.println(post.getId() + " " + post.getTitle());
+    }
+
+
 
   }
 }

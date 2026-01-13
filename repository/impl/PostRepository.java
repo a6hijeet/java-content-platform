@@ -21,4 +21,8 @@ public class PostRepository {
      public boolean addPost(Post p) {
         return this.postList.add(p);
     }
+
+    public void updatePost(int index, Post p) {
+        this.postList.set(index, p);
+    }
 }

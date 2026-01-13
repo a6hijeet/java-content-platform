@@ -20,7 +20,11 @@ public class PostController {
         return p.orElseThrow();
     }
 
-    public boolean createPost(int id, String title) {
+    public boolean createPost(long id, String title) {
         return ps.createPost(id, title);
+    }
+
+    public boolean updatePost(long id, String title) {
+        return ps.updatePost(id, title);
     }
 }

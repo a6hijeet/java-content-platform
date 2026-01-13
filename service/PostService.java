@@ -11,9 +11,24 @@ public class PostService {
 
   PostRepository pr = new PostRepository();
   
-  public boolean createPost(int id, String title) {
+  public boolean createPost(long id, String title) {
     Post p = new Post(id, title);
     return pr.addPost(p);
+  }
+
+  public boolean updatePost(long id, String title) {
+    try {
+      Post p = getPostById(id).get();
+      List<Post> postList = pr.getAll();
+      int index = postList.indexOf(p);
+      p.setTitle(title);
+      p.setId(id);
+      pr.updatePost(index, p);
+    }catch(Exception e) {
+      System.out.println("No post found");
+      return false;
+    }
+    return true;
   }
 
   public List<Post> getAll() {
@@ -27,3 +42,4 @@ public class PostService {
       return post.findFirst();
   }
 }
+;
