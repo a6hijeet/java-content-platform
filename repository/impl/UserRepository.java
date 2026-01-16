@@ -16,4 +16,8 @@ public class UserRepository {
    public void saveAll(List<User> users) {
     JsonFile.writeList(FILE, users);
    }
+
+   public User getUserById(long id) {
+    return getAll().stream().filter(user -> user.getId() == id).findFirst().orElseThrow();
+   }
 }
