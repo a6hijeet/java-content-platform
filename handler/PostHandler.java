@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import controller.PostController;
 import model.Post;
+import model.dto.PostDto;
 
 
 public class PostHandler implements HttpHandler{
@@ -48,17 +49,17 @@ public class PostHandler implements HttpHandler{
         sendJson(exchange, 200, response);
     }
 
-    private void handlePost(HttpExchange exchange) throws Exception {
-        String body = new String(exchange.getRequestBody().readAllBytes());
-        System.out.println(body);
-        /* String response = objectMapper.writerWithDefaultPrettyPrinter()
-                                .writeValueAsString(posts);
-
-        sendJson(exchange, 200, response);
-
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(response.getBytes());
-        } */
+    private void handlePost(HttpExchange exchange) {
+        try {
+            String body = new String(exchange.getRequestBody().readAllBytes());
+            //System.out.println(body);
+            Post post = objectMapper.readValue(body, Post.class);
+            boolean isCreated = postController.createPost(post.getId(), post.getTitle(), post.getCreatedBy());
+            sendJson(exchange, 200, "{\"message\" : \"Post Added successfully\"}");
+        }catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
     }
 
     private void handlePut(HttpExchange exchange) throws Exception {

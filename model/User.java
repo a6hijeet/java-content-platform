@@ -5,12 +5,14 @@ import model.dto.UserDto;
 public class User {
   private long id;
   private String name;
+  private String password;
 
   public User(){}
   
-  public User(long id, String name) {
+  public User(long id, String name, String password) {
     this.id = id;
     this.name = name;
+    this.password = password;
   }
   public long getId() {
     return id;
@@ -27,7 +29,13 @@ public class User {
   public void setName(String name) {
     this.name = name;
   }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   public UserDto toDto() {
     return new UserDto(this.id, this.name);
   }
 }
+ 

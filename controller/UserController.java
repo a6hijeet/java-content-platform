@@ -17,8 +17,8 @@ public class UserController {
         return ps.getUserById(userId);
     }
 
-    public boolean createUser(long id, String title) {
-        return ps.createUser(id, title);
+    public boolean createUser(long id, String title, String password) {
+        return ps.createUser(id, title, password);
     }
 
     public boolean updateUSer(long id, String name) {

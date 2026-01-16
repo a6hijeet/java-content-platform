@@ -4,80 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css" type="text/tailwindcss">
+   <!--  <style type="text/tailwindcss">
+      input, button {
+        @apply text-gray-900 bg-gray-200 border rounded;
+      }
+      button {
+        @apply bg-slate-600 text-white px-2 py-1
+      }
+    </style> -->
 </head>
-<body>
-     <h1>Vanilla JavaScript API Call Example</h1>
-    <button id="loadData">Load Data</button>
-    <pre id="output"></pre>
-    <form>
+<body class="mx-auto px-8">
+    <div class="userwrapper flex w-full justify-end gap-5 items-center mt-5">
+      <div class="greet">Hi, <span id="userProfile"></span></div>
+       <button>Logout</button>
+      </div>
+    
+    <form id="addPost" method="post" class="flex flex-col w-80 gap-5 border p-4 rounded">
         <input type="number" name="id">
-        <input type="text" name="postname">
-        <button>Add Post</button>
+       <!--  <input type="text" name="createdBy"> -->
+         <input type="text" name="title">
+        <button class="border bg-gray-400 px-2" type="submit" id="submit">Add Post</button>
     </form>
+
+
+    <pre id="output">Loading...</pre>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     
+
     <script>
        $(document).ready(function () {
-        console.log('jquery loaded');
-            $("#loadData").on("click", function () {
-                console.log("jqery")
-                $.ajax({
-                    url: "http://localhost:8080/posts", // Example API
-                    type: "GET", // HTTP method
-                    dataType: "json", // Expected response type
-                    timeout: 5000, // Timeout in ms
-                    success: function (data) {
-                        console.log(data);
-                       let output = "<ul>";
-                        $.each(data, function (index, post) {
-                            output += `<li>${post.title} - ${post.id}</li>`;
-                        });
-                        output += "</ul>";
-                        // Display the result
-                        $("#output").html(output);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                        $("#result").html(
-                            `<p style="color:red;">Error: ${status} - ${error}</p>`
-                        );
-                    },
-                    complete: function () {
-                        console.log("AJAX request completed.");
-                    }
+        let userId = sessionStorage.getItem("USER_ID");
+        if(!userId) {
+          window.location.href = "login.html";
+        }
+        $("#userProfile").html(sessionStorage.getItem("USERNAME"));
+        
+        setTimeout(function() {
+          loadPosts();
+        },500)
+            $("#addPost").on("submit", function(e) {
+              console.log("addin post")
+                e.preventDefault();
+                let formDataArray = $(this).serializeArray();
+                let formDataJSON = {};
+                $.each(formDataArray, function () {
+                    formDataJSON[this.name] = this.value;
                 });
-            });
+                $.ajax({
+                  url: "/posts", // Replace with your API endpoint
+                  type: "POST",
+                  data: JSON.stringify(formDataJSON),
+                  processData: false, // Prevent jQuery from processing data
+                  contentType: "application/json", // Let browser set Content-Type
+                  dataType: "json",   // Expected response format
+                  success: function (response, textContent, xhr) {
+                      console.log(response)
+                      console.log(textContent)
+                      console.log(xhr)
+                  },
+                  error: function (xhr) {
+                      let errorMsg = "An error occurred.";
+                      if (xhr.responseJSON && xhr.responseJSON.error) {
+                          errorMsg = xhr.responseJSON.error;
+                      }
+                      $("#response").html(`<p style="color:red;">Error: ${errorMsg}</p>`);
+                  },
+                  complete: function() {
+                    console.log("Post added.");
+                    loadPosts();
+                  }
+                });
+            })
+          function loadPosts() {
+            $.ajax({
+              url: "/posts", // Example API
+              type: "GET", // HTTP method
+              dataType: "json", // Expected response type
+              timeout: 5000, // Timeout in ms
+              success: function (data) {
+                  console.log(data);
+                  let output = "<ul>";
+                  $.each(data, function (index, post) {
+                      output += `<li>${post.title} - ${post.id}</li>`;
+                  });
+                  output += "</ul>";
+                  // Display the result
+                  $("#output").html(output);
+              },
+              error: function (xhr, status, error) {
+                  // Handle errors
+                  $("#result").html(
+                      `<p style="color:red;">Error: ${status} - ${error}</p>`
+                  );
+              },
+              complete: function () {
+                  console.log("AJAX request completed.");
+              }
+          });
+          }
         });
     </script>
-    <!-- <script>
-        // Function to fetch data from an API
-        async function fetchData() {
-            const output = document.getElementById('output');
-            output.textContent = "Loading...";
-
-            try {
-                // Example API (Public JSON placeholder)
-                const response = await fetch('http://localhost:8080/posts');
-
-                // Check if the response is OK (status 200–299)
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                // Parse JSON data
-                const data = await response.json();
-
-                // Display the result
-                output.textContent = JSON.stringify(data, null, 2);
-
-            } catch (error) {
-                // Handle network or parsing errors
-                output.textContent = `Error: ${error.message}`;
-            }
-        }
-
-        // Attach event listener to button
-        document.getElementById('loadData').addEventListener('click', fetchData);
-    </script> -->
 </body>
 </html>

@@ -1,1 +1,9 @@
-[]
+[ {
+  "id" : 101,
+  "userId" : 101,
+  "comment" : "First comment from U1"
+}, {
+  "id" : 102,
+  "userId" : 102,
+  "comment" : "Second comment from U1"
+} ]

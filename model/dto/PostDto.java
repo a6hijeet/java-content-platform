@@ -11,7 +11,7 @@ public class PostDto {
   private UserDto createdBy; 
   Set<UserDto> likes = new HashSet<>();
   List<CommentDto> comments = new ArrayList<>();
-
+  
   public PostDto(long id, String title, UserDto createdBy, Set<UserDto> likes, List<CommentDto> comments) {
     this.id = id;
     this.title = title;

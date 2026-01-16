@@ -1,9 +1,6 @@
 package service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import model.User;
 import model.dto.UserDto;
 import repository.impl.UserRepository;
@@ -12,9 +9,9 @@ public class UserService {
 
   UserRepository userRepo = new UserRepository();
 
-  public boolean createUser(long id, String name) {
+  public boolean createUser(long id, String name, String password) {
     List<User> users = userRepo.getAll();
-    User user = new User(id, name);
+    User user = new User(id, name, password);
     users.add(user);
     userRepo.saveAll(users);
     return true;

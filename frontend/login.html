@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+	<form id="login">
+		<input type="text" name="username" id="username">
+		<input type="password" name="password" id="password">
+		<button type="submit">Login</button>
+	</form>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+      if(sessionStorage.getItem("USER_ID")) {
+         window.location.href = "index.html";
+      }
+      $("#login").on("submit", function(e) {
+        e.preventDefault();
+        console.log("prevent")
+        login();
+      });
+
+      function login() {
+        $.getJSON('/getjson', function(users) {
+          console.log(users)
+          const username = $("#username").val().trim();
+          const password = $("#password").val().trim();
+          const user = users.find(u => 
+            u.name === username && u.password === password
+          );
+
+          if(!user) {
+            alert("Invalid credentials");
+            return;
+          }
+
+          sessionStorage.setItem("USER_ID", user.id);
+          sessionStorage.setItem("USERNAME", user.name);
+          alert("logged in as "+ user.id + " : " + user.name);
+          window.location.href = "index.html";
+        });
+      }
+    })
+  </script>
+</body>
+</html>
