@@ -2,9 +2,9 @@ package controller;
 
 
 import java.util.List;
-import java.util.Optional;
-
+import model.Comment;
 import model.Post;
+import model.dto.PostDto;
 import service.PostService;
 
 public class PostController {
@@ -15,20 +15,28 @@ public class PostController {
         return postList;
     }
 
-    public Post getPostById(long postId){
-        Optional<Post> p = ps.getPostById(postId);
-        return p.orElseThrow();
+    public PostDto getPostById(long postId){
+        return ps.getPostById(postId);
     }
 
-    public boolean createPost(long id, String title) {
-        return ps.createPost(id, title);
+    public boolean createPost(long id, String title, long createdBy) {
+        return ps.createPost(id, title, createdBy);
     }
 
-    public boolean updatePost(long id, String title) {
-        return ps.updatePost(id, title);
+    public boolean updatePost(long id, Post post) {
+        return ps.updatePost(id, post);
     }
 
     public boolean deletePost(long id) {
         return ps.deletePost(id);
     }
+
+    public void attachComment(long id, Comment comment) {
+        ps.attachComment(id, comment);
+    }
+
+    public void attachLike(long id, long userId) {
+        ps.attachLike(id, userId);
+    }
+
 }

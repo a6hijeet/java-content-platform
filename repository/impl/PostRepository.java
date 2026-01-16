@@ -19,4 +19,8 @@ public class PostRepository {
    public void saveAll(List<Post> posts) {
     JsonFile.writeList(FILE, posts);
    }
+
+   public Post getPostById(long postId) {
+      return getAll().stream().filter(post -> post.getId() == postId).findFirst().orElseThrow();
+   }
 }
