@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h1>Vanilla JavaScript API Call Example</h1>
+    <button id="loadData">Load Data</button>
+    <pre id="output"></pre>
+    <form>
+        <input type="number" name="id">
+        <input type="text" name="postname">
+        <button>Add Post</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    
+    <script>
+       $(document).ready(function () {
+        console.log('jquery loaded');
+            $("#loadData").on("click", function () {
+                console.log("jqery")
+                $.ajax({
+                    url: "http://localhost:8080/posts", // Example API
+                    type: "GET", // HTTP method
+                    dataType: "json", // Expected response type
+                    timeout: 5000, // Timeout in ms
+                    success: function (data) {
+                        console.log(data);
+                       let output = "<ul>";
+                        $.each(data, function (index, post) {
+                            output += `<li>${post.title} - ${post.id}</li>`;
+                        });
+                        output += "</ul>";
+                        // Display the result
+                        $("#output").html(output);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors
+                        $("#result").html(
+                            `<p style="color:red;">Error: ${status} - ${error}</p>`
+                        );
+                    },
+                    complete: function () {
+                        console.log("AJAX request completed.");
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- <script>
+        // Function to fetch data from an API
+        async function fetchData() {
+            const output = document.getElementById('output');
+            output.textContent = "Loading...";
+
+            try {
+                // Example API (Public JSON placeholder)
+                const response = await fetch('http://localhost:8080/posts');
+
+                // Check if the response is OK (status 200–299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                // Parse JSON data
+                const data = await response.json();
+
+                // Display the result
+                output.textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                // Handle network or parsing errors
+                output.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Attach event listener to button
+        document.getElementById('loadData').addEventListener('click', fetchData);
+    </script> -->
+</body>
+</html>
