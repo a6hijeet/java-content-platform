@@ -1,9 +1,13 @@
 package model;
 
+import model.dto.UserDto;
+
 public class User {
   private long id;
   private String name;
 
+  public User(){}
+  
   public User(long id, String name) {
     this.id = id;
     this.name = name;
@@ -22,5 +26,8 @@ public class User {
 
   public void setName(String name) {
     this.name = name;
+  }
+  public UserDto toDto() {
+    return new UserDto(this.id, this.name);
   }
 }

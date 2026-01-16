@@ -1,13 +1,16 @@
 package model;
 
+import model.dto.CommentDto;
+
 public class Comment {
   private long id;
-  private User user;
+  private long userId;
   private String comment;
 
-  public Comment(long id, User user, String comment) {
+  public Comment(){}
+  public Comment(long id, long userId, String comment) {
     this.id = id;
-    this.user = user;
+    this.userId = userId;
     this.comment = comment;
   }
 
@@ -19,12 +22,12 @@ public class Comment {
     this.id = id;
   }
 
-  public User getUser() {
-    return user;
+  public long getUserId() {
+    return this.userId;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setUserId(long userId) {
+    this.userId = userId;
   }
 
   public String getComment() {
